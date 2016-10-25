@@ -17,8 +17,9 @@ done
 . /home/tcj25/.virtualenvs/35/bin/activate
 
 srun -n 1 noninteractive-alignment-panel.py \
+  --matcher diamond \
   --outputDir out \
   $json_option \
   $fastq_option \
   --withScoreBetterThan 50 \
-  --checkAlphabet 0
+  --diamondDatabaseFilename /home/tcj25/scratch/root/share/ncbi/diamond-dbs/viral.nonredundant_protein.protein.dmnd
