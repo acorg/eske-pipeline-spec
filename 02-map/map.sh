@@ -5,6 +5,8 @@ case $# in
   *) echo "Usage: `basename $0` fastq-file" 2>&1; exit 1;;
 esac
 
+. /home/tcj25/.virtualenvs/35/bin/activate
+
 basename="`basename $fastq | sed 's/\.fastq\.gz$//'`"
 
 # Map to human genome, save to ramdisk SAM file.

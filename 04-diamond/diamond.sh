@@ -6,6 +6,8 @@ out=$task.json.bz2
 
 echo "FASTQ file is $fastq"
 
+. /home/tcj25/.virtualenvs/35/bin/activate
+
 diamond blastx \
     --tmpdir /ramdisks \
     --threads 24 \
