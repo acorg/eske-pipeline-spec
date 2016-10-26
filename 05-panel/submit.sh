@@ -11,7 +11,7 @@ fastq_option=
 for task in "$@"
 do
     json_option="$json_option --json ../04-diamond/$task.json.bz2"
-    fastq_option="$fastq_option --fastq ../$task.fastq.gz"
+    fastq_option="$fastq_option --fastq ../03-find-unmapped/$task-unmapped.fastq.gz"
 done
 
 . /home/tcj25/.virtualenvs/35/bin/activate
