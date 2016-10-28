@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 #SBATCH -J find-unmapped
 #SBATCH -A DSMITH-BIOCLOUD

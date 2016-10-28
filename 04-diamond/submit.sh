@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 #SBATCH -J diamond
 #SBATCH -A DSMITH-BIOCLOUD

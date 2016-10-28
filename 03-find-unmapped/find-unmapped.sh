@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 task=$1
 bam=../02-map/$task.bam

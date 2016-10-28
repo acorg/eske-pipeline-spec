@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 #SBATCH -J panels
 #SBATCH -A DSMITH-BIOCLOUD

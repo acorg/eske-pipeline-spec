@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 #SBATCH -J trim
 #SBATCH -A DSMITH-BIOCLOUD

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 task=$1
 fastq=../03-find-unmapped/$task-unmapped.fastq.gz
