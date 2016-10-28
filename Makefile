@@ -19,7 +19,8 @@ clean:
               03-find-unmapped/*.fastq.gz \
               03-find-unmapped/*.out \
               04-diamond/*.json.bz2 \
-              04-diamond/*.out
+              04-diamond/*.out \
+              05-panel/slurm-*.out
 
 # Remove all intermediates and the final panel output.
 clobber: clean
