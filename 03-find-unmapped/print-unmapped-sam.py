@@ -13,8 +13,8 @@ import sys
 filename = sys.argv[1]
 samfile = pysam.AlignmentFile(filename, 'rb')
 
-print('According to pysam file %r has %d mapped reads and %d unmapped.' %
-      (filename, samfile.mapped, samfile.unmapped), file=sys.stderr)
+# print('According to pysam file %r has %d mapped reads and %d unmapped.' %
+# (filename, samfile.mapped, samfile.unmapped), file=sys.stderr)
 
 mappedCount = unmappedCount = 0
 
@@ -31,13 +31,13 @@ for read in samfile:
         mappedCount += 1
 
 # Check that what we counted is what the SAM file says it contains.
-assert samfile.mapped == mappedCount, (
-    'samfile.mapped (%d) != mappedCount (%d)' %
-    (samfile.mapped == mappedCount))
+# assert samfile.mapped == mappedCount, (
+#     'samfile.mapped (%d) != mappedCount (%d)' %
+#     (samfile.mapped == mappedCount))
 
-assert samfile.unmapped == unmappedCount, (
-    'samfile.unmapped (%d) != unmappedCount (%d)' %
-    (samfile.unmapped == unmappedCount))
+# assert samfile.unmapped == unmappedCount, (
+#     'samfile.unmapped (%d) != unmappedCount (%d)' %
+#     (samfile.unmapped == unmappedCount))
 
 samfile.close()
 
