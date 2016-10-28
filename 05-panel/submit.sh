@@ -21,5 +21,6 @@ srun -n 1 noninteractive-alignment-panel.py \
   --outputDir out \
   $json_option \
   $fastq_option \
-  --withScoreBetterThan 50 \
+  --withScoreBetterThan 40 \
+  --maxTitles 200 \
   --diamondDatabaseFilename /home/tcj25/scratch/root/share/ncbi/diamond-dbs/viral.nonredundant_protein.protein.dmnd
