@@ -7,4 +7,4 @@ bam=../02-map/$task.bam
 
 echo "BAM file is $bam"
 
-read-bam.py $bam | gzip > $task-unmapped.fastq.gz
+print-unmapped-sam.py $bam | gzip > $task-unmapped.fastq.gz
