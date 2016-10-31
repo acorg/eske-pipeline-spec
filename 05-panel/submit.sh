@@ -25,7 +25,7 @@ done
 
 echo >> $log
 
-dbfile=$HOME/scratch/root/share/ncbi/diamond-dbs/viral.nonredundant_protein.protein.dmnd
+dbfile=$HOME/scratch/root/share/ncbi/viral-refseq/viral.nonredundant_protein.protein.fasta
 
 if [ ! -f $dbfile ]
 then
