@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-#SBATCH -J panels
+#SBATCH -J panel
 #SBATCH -A DSMITH-BIOCLOUD
 #SBATCH -o slurm-%A-%a.out
 #SBATCH -p biocloud-normal
