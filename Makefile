@@ -10,6 +10,8 @@ run:
 # throw away all that work!
 clean:
 	rm -f \
+              *.log \
+              slurm-pipeline.done \
               01-trim/*.discarded.gz \
               01-trim/*.settings \
               01-trim/*.fastq.gz \
@@ -24,4 +26,4 @@ clean:
 
 # Remove all intermediates and the final panel output.
 clobber: clean
-	rm -fr 05-panel/out
+	rm -fr 05-panel/out status.json
