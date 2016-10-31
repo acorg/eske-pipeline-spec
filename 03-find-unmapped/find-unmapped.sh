@@ -13,5 +13,5 @@ echo "  print-unmapped-sam.py started at `date`" >> $log
 print-unmapped-sam.py $bam | gzip > $task-unmapped.fastq.gz
 echo "  print-unmapped-sam.py stopped at `date`" >> $log
 
-echo "03-find-unmapped on task $task finished at `date`" >> $log
+echo "03-find-unmapped on task $task stopped at `date`" >> $log
 echo >> $log

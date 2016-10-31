@@ -20,5 +20,5 @@ diamond blastx \
 convert-diamond-to-json.py | bzip2 > $out
 echo "  diamond blastx stopped at `date`" >> $log
 
-echo "04-diamond on task $task finished at `date`" >> $log
+echo "04-diamond on task $task stopped at `date`" >> $log
 echo >> $log

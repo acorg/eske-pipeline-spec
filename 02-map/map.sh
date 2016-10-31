@@ -24,5 +24,5 @@ echo "  bam sort started at `date`" >> $log
 samtools sort --threads 24 -o $task.bam /ramdisks/terry-$task.bam
 echo "  bam sort stopped at `date`" >> $log
 
-echo "02-map on task $task finished at `date`" >> $log
+echo "02-map on task $task stopped at `date`" >> $log
 echo >> $log
