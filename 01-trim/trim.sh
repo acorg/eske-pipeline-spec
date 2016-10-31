@@ -6,19 +6,17 @@
 #SBATCH -p biocloud-normal
 #SBATCH --time=05:00:00
 
-# The task is $1
+. /home/tcj25/.virtualenvs/35/bin/activate
+
 task=$1
 fastq=../$task.fastq.gz
+log=../$task.log
 adapter=`echo $task | cut -f7 -d_`
 out=$task-trimmed.fastq.gz
 
-echo "hostname is `hostname`"
-echo "task is $task"
-echo "fastq is $fastq"
-echo "output going to $out"
-echo "adapter is $adapter"
-
-. /home/tcj25/.virtualenvs/35/bin/activate
+echo "01-trim on task $task started at `date`" >> $log
+echo "  fastq is $fastq" >> $log
+echo "  adapter is $adapter" >> $log
 
 srun -n 1 AdapterRemoval \
   --basename $task \
@@ -28,3 +26,6 @@ srun -n 1 AdapterRemoval \
   --gzip \
   --trimns \
   --trimqualities
+
+echo "01-trim on task $task stopped at `date`" >> $log
+echo >> $log

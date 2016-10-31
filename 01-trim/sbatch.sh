@@ -1,8 +1,13 @@
 #!/bin/bash -e
 
-for fastq in "$@"
-do
-    task=`echo $fastq | cut -f1 -d.`
-    jobid=`sbatch -n 1 trim.sh $task | cut -f4 -d' '`
-    echo "TASK: $task $jobid"
-done
+task=$1
+
+log=../$task.log
+
+echo "sbatch.sh running at `date`" >> $log
+echo "task is $task" >> $log
+echo "dependencies are $SP_DEPENDENCY_ARG" >> $log
+echo >> $log
+
+jobid=`sbatch -n 1 trim.sh $task | cut -f4 -d' '`
+echo "TASK: $task $jobid"

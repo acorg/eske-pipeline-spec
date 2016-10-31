@@ -1,9 +1,12 @@
 #!/bin/bash -e
 
 task=$1
+log=../$task.log
 
-echo "task is $task" > sbatch-$task.out
-echo "deps are $SP_DEPENDENCY_ARG" >> sbatch-$task.out
+echo "sbatch.sh running at `date`" >> $log
+echo "task is $task" >> $log
+echo "dependencies are $SP_DEPENDENCY_ARG" >> $log
+echo >> $log
 
 # Request an exclusive machine because we're going to tell bwa and samtools
 # to use 24 threads.
