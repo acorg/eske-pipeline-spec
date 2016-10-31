@@ -2,7 +2,7 @@
 
 #SBATCH -J map
 #SBATCH -A DSMITH-BIOCLOUD
-#SBATCH -o slurm-%A-%a.out
+#SBATCH -o slurm-%A.out
 #SBATCH -p biocloud-normal
 #SBATCH --time=05:00:00
 
