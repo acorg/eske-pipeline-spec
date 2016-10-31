@@ -25,6 +25,14 @@ done
 
 echo >> $log
 
+dbfile=$HOME/scratch/root/share/ncbi/diamond-dbs/viral.nonredundant_protein.protein.dmnd
+
+if [ ! -f $dbfile ]
+then
+    echo "DIAMOND database FASTA file $dbfile does not exist!" >> $log
+    exit 1
+fi
+
 echo "  noninteractive-alignment-panel.py started at `date`" >> $log
 srun -n 1 noninteractive-alignment-panel.py \
   --matcher diamond \
@@ -33,7 +41,7 @@ srun -n 1 noninteractive-alignment-panel.py \
   $fastq_option \
   --withScoreBetterThan 40 \
   --maxTitles 200 \
-  --diamondDatabaseFilename /home/tcj25/scratch/root/share/ncbi/diamond-dbs/viral.nonredundant_protein.protein.dmnd
+  --diamondDatabaseFilename $dbfile
 echo "  noninteractive-alignment-panel.py stopped at `date`" >> $log
 
 echo "05-panel stopped at `date`" >> $log
