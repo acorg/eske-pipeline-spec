@@ -4,7 +4,7 @@ task=$1
 
 log=../$task.log
 
-echo "sbatch.sh running at `date`" >> $log
+echo "01-trim sbatch.sh running at `date`" >> $log
 echo "task is $task" >> $log
 echo "dependencies are $SP_DEPENDENCY_ARG" >> $log
 echo >> $log
