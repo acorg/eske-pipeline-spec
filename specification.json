@@ -41,6 +41,6 @@
             "dependencies": ["panel"],
             "name": "stop",
             "script": "06-stop/stop.sh"
-        },
+        }
     ]
 }
