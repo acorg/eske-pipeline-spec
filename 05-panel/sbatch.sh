@@ -11,5 +11,5 @@ done
 
 echo >> $log
 
-jobid=`sbatch -n 1 $SP_DEPENDENCY_ARG --exclusive submit.sh "$@" | cut -f4 -d' '`
+jobid=`sbatch -n 1 $SP_DEPENDENCY_ARG submit.sh "$@" | cut -f4 -d' '`
 echo "TASK: panel $jobid"
