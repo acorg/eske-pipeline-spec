@@ -6,24 +6,31 @@ x:
 run:
 	slurm-pipeline.py -s specification.json *.fastq.gz > status.json
 
-# Remove all intermediate files. Only run this if you're sure you want to
-# throw away all that work!
-clean:
+# Remove all large intermediate files. Only run this if you're sure you
+# want to throw away all that work!
+clean-1:
 	rm -f \
-              *.log \
-              slurm-pipeline.done \
               01-trim/*.discarded.gz \
               01-trim/*.settings \
               01-trim/*.fastq.gz \
-              01-trim/slurm-*.out \
-              02-map/*.out \
               02-map/*.bam \
               03-find-unmapped/*.fastq.gz \
-              03-find-unmapped/*.out \
-              04-diamond/*.json.bz2 \
-              04-diamond/*.out \
-              05-panel/slurm-*.out
+              04-diamond/*.json.bz2
 
-# Remove all intermediates and the final panel output.
-clobber: clean
-	rm -fr 05-panel/out status.json
+# Remove even more intermediate files.
+clean-2: clean-1
+	rm -f \
+              01-trim/*.out \
+              02-map/*.out \
+              03-find-unmapped/*.out \
+              04-diamond/*.out \
+              05-panel/*.out
+
+# Remove *all* intermediates, including the final panel output.
+clean-3: clean-2
+	rm -fr \
+	      05-panel/out \
+              slurm-pipeline.log \
+              slurm-pipeline.done \
+              *.log \
+              status.json
