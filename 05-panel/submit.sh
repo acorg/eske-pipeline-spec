@@ -35,12 +35,13 @@ fi
 
 echo "  noninteractive-alignment-panel.py started at `date`" >> $log
 srun -n 1 noninteractive-alignment-panel.py \
-  --matcher diamond \
-  --outputDir out \
   $json_option \
   $fastq_option \
+  --matcher diamond \
+  --outputDir out \
   --withScoreBetterThan 40 \
   --maxTitles 200 \
+  --minMatchingReads 3 \
   --negativeTitleRegex phage \
   --diamondDatabaseFastaFilename $dbfile
 echo "  noninteractive-alignment-panel.py stopped at `date`" >> $log
