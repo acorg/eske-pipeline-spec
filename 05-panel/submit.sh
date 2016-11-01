@@ -41,6 +41,7 @@ srun -n 1 noninteractive-alignment-panel.py \
   $fastq_option \
   --withScoreBetterThan 40 \
   --maxTitles 200 \
+  --negativeTitleRegex phage \
   --diamondDatabaseFastaFilename $dbfile
 echo "  noninteractive-alignment-panel.py stopped at `date`" >> $log
 

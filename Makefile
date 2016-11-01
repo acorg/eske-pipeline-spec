@@ -1,7 +1,7 @@
 .PHONY: x, run, clean
 
 x:
-	@echo "There is no default make target. Use 'make run' to run the SLURM pipeline"
+	@echo "There is no default make target. Use 'make run' to run the SLURM pipeline."
 
 run:
 	slurm-pipeline.py -s specification.json *.fastq.gz > status.json
@@ -29,11 +29,11 @@ clean-2: clean-1
 # Remove *all* intermediates, including the final panel output.
 clean-3: clean-2
 	rm -fr \
-	      05-panel/out \
-              slurm-pipeline.log \
-              slurm-pipeline.done \
-              *.log \
-              status.json
+	       05-panel/out \
+	       slurm-pipeline.log \
+	       slurm-pipeline.done \
+	       *.log \
+	       status.json
 
 # Remove unneeded files that we get from ftp.
 clean-ftp:
