@@ -34,3 +34,11 @@ clean-3: clean-2
               slurm-pipeline.done \
               *.log \
               status.json
+
+# Remove unneeded files that we get from ftp.
+clean-ftp:
+	rm -fr \
+               *_fastqc \
+               *_fastqc.zip \
+               SampleSheet.csv \
+               .listing \
