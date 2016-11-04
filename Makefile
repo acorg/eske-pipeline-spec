@@ -24,7 +24,8 @@ clean-2: clean-1
               02-map/*.out \
               03-find-unmapped/*.out \
               04-diamond/*.out \
-              05-panel/*.out
+              05-panel/*.out \
+              06-stop/*.out
 
 # Remove *all* intermediates, including the final panel output.
 clean-3: clean-2
