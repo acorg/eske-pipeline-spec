@@ -30,6 +30,8 @@ clean-2: clean-1
 clean-3: clean-2
 	rm -fr \
 	       05-panel/out \
+               05-panel/summary-proteins \
+               05-panel/summary-virus \
 	       slurm-pipeline.log \
 	       slurm-pipeline.done \
 	       *.log \
