@@ -23,8 +23,6 @@ do
     fastq_option="$fastq_option --fastq ../03-find-unmapped/$task-unmapped.fastq.gz"
 done
 
-echo >> $log
-
 dbfile=$HOME/scratch/root/share/ncbi/viral-refseq/viral.protein.fasta
 
 if [ ! -f $dbfile ]
@@ -42,9 +40,14 @@ srun -n 1 noninteractive-alignment-panel.py \
   --withScoreBetterThan 40 \
   --maxTitles 200 \
   --minMatchingReads 3 \
+  --minCoverage 0.1 \
   --negativeTitleRegex phage \
-  --diamondDatabaseFastaFilename $dbfile
+  --diamondDatabaseFastaFilename $dbfile > summary-proteins
 echo "  noninteractive-alignment-panel.py stopped at `date`" >> $log
+
+echo "  group-summary-proteins.py started at `date`" >> $log
+group-summary-proteins.py < summary-proteins > summary-virus
+echo "  group-summary-proteins.py stopped at `date`" >> $log
 
 echo "05-panel stopped at `date`" >> $log
 echo >> $log
