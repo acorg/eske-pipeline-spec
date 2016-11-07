@@ -19,6 +19,10 @@ echo "  fastq is $fastq" >> $log
 # The adapter is either in field 7 or 8 (underscore separated) and must
 # have 6 characters from the set A, C, G, T, N (this is what AdapterRemoval
 # says when you give it something that it cannot handle).
+#
+# We also temporarily allow commands to exit non-zero, as the greps below
+# may fail.
+set +e
 adapter=`echo $task | cut -f7 -d_ | egrep '^[ACGTN]{6}$'`
 
 if [ -z "$adapter" ]
@@ -31,6 +35,7 @@ then
         exit 1
     fi
 fi
+set -e
 
 echo "  adapter is $adapter" >> $log
 
