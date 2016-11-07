@@ -11,11 +11,27 @@
 task=$1
 fastq=../$task.fastq.gz
 log=../$task.log
-adapter=`echo $task | cut -f7 -d_`
 out=$task-trimmed.fastq.gz
 
 echo "01-trim on task $task started at `date`" >> $log
 echo "  fastq is $fastq" >> $log
+
+# The adapter is either in field 7 or 8 (underscore separated) and must
+# have 6 characters from the set A, C, G, T, N (this is what AdapterRemoval
+# says when you give it something that it cannot handle).
+adapter=`echo $task | cut -f7 -d_ | egrep '^[ACGTN]{6}$'`
+
+if [ -z "$adapter" ]
+then
+    adapter=`echo $task | cut -f8 -d_ | egrep '^[ACGTN]{6}$'`
+
+    if [ -z "$adapter" ]
+    then
+        echo "  WARNING: Could not find adapter sequence in task $task" >> $log
+        exit 1
+    fi
+fi
+
 echo "  adapter is $adapter" >> $log
 
 srun -n 1 AdapterRemoval \
