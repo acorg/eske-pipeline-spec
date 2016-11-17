@@ -14,13 +14,13 @@ log=../slurm-pipeline.log
 
 echo "05-panel started at `date`" >> $log
 
-json_option=
-fastq_option=
+json=
+fastq=
 for task in "$@"
 do
     echo "  task $task" >> $log
-    json_option="$json_option --json ../04-diamond/$task.json.bz2"
-    fastq_option="$fastq_option --fastq ../03-find-unmapped/$task-unmapped.fastq.gz"
+    json="$json ../04-diamond/$task.json.bz2"
+    fastq="$fastq ../03-find-unmapped/$task-unmapped.fastq.gz"
 done
 
 dbfile=$HOME/scratch/root/share/ncbi/viral-refseq/viral.protein.fasta
@@ -33,8 +33,8 @@ fi
 
 echo "  noninteractive-alignment-panel.py started at `date`" >> $log
 srun -n 1 noninteractive-alignment-panel.py \
-  $json_option \
-  $fastq_option \
+  --json $json \
+  --fastq $fastq \
   --matcher diamond \
   --outputDir out \
   --withScoreBetterThan 40 \
