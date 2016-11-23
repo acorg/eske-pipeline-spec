@@ -19,15 +19,39 @@ then
     exit 1
 fi
 
-echo "  diamond blastx started at `date`" >> $log
-diamond blastx \
-    --tmpdir /ramdisks \
-    --threads 24 \
-    --query $fastq \
-    --db $dbfile \
-    --outfmt 6 qtitle stitle bitscore evalue qframe qseq qstart qend sseq sstart send slen btop |
-convert-diamond-to-json.py | bzip2 > $out
-echo "  diamond blastx stopped at `date`" >> $log
+function diamond()
+{
+    echo "  diamond blastx started at `date`" >> $log
+    diamond blastx \
+        --tmpdir /ramdisks \
+        --threads 24 \
+        --query $fastq \
+        --db $dbfile \
+        --outfmt 6 qtitle stitle bitscore evalue qframe qseq qstart qend sseq sstart send slen btop |
+    convert-diamond-to-json.py | bzip2 > $out
+    echo "  diamond blastx stopped at `date`" >> $log
+}
+
+
+if [ $SP_SIMULATE = "0" ]
+then
+    echo "  This is not a simulation." >> pipeline.log
+    if [ -f $out ]
+    then
+        if [ $SP_FORCE = "1" ]
+        then
+            echo "  Pre-existing output file $out exists, but --force was used. Overwriting." >> pipeline.log
+            diamond
+        else
+            echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> pipeline.log
+        fi
+    else
+        echo "  No pre-existing output file $out exist, mapping." >> pipeline.log
+        diamond
+    fi
+else
+    echo "  This is a simulation." >> pipeline.log
+fi
 
 echo "04-diamond on task $task stopped at `date`" >> $log
 echo >> $log

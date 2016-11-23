@@ -8,6 +8,4 @@
 
 task=$1
 
-echo "hostname is `hostname`"
-
 srun -n 1 map.sh $task

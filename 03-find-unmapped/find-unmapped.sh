@@ -3,15 +3,39 @@
 . /home/tcj25/.virtualenvs/35/bin/activate
 
 task=$1
-log=../$task.log
+out=$task-unmapped.fastq.gz
 bam=../02-map/$task.bam
+log=../$task.log
+
+function unmapped()
+{
+    echo "  print-unmapped-sam.py started at `date`" >> $log
+    print-unmapped-sam.py $bam | gzip > $out
+    echo "  print-unmapped-sam.py stopped at `date`" >> $log
+}
 
 echo "03-find-unmapped on task $task started at `date`" >> $log
 echo "  bam file is $bam" >> $log
 
-echo "  print-unmapped-sam.py started at `date`" >> $log
-print-unmapped-sam.py $bam | gzip > $task-unmapped.fastq.gz
-echo "  print-unmapped-sam.py stopped at `date`" >> $log
+if [ $SP_SIMULATE = "0" ]
+then
+    echo "  This is not a simulation." >> pipeline.log
+    if [ -f $out ]
+    then
+        if [ $SP_FORCE = "1" ]
+        then
+            echo "  Pre-existing output file $out exists, but --force was used. Overwriting." >> pipeline.log
+            unmapped
+        else
+            echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> pipeline.log
+        fi
+    else
+        echo "  No pre-existing output file $out exist, mapping." >> pipeline.log
+        unmapped
+    fi
+else
+    echo "  This is a simulation." >> pipeline.log
+fi
 
 echo "03-find-unmapped on task $task stopped at `date`" >> $log
 echo >> $log

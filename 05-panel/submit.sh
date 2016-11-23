@@ -31,23 +31,47 @@ then
     exit 1
 fi
 
-echo "  noninteractive-alignment-panel.py started at `date`" >> $log
-srun -n 1 noninteractive-alignment-panel.py \
-  --json $json \
-  --fastq $fastq \
-  --matcher diamond \
-  --outputDir out \
-  --withScoreBetterThan 40 \
-  --maxTitles 200 \
-  --minMatchingReads 3 \
-  --minCoverage 0.1 \
-  --negativeTitleRegex phage \
-  --diamondDatabaseFastaFilename $dbfile > summary-proteins
-echo "  noninteractive-alignment-panel.py stopped at `date`" >> $log
 
-echo "  group-summary-proteins.py started at `date`" >> $log
-group-summary-proteins.py < summary-proteins > summary-virus
-echo "  group-summary-proteins.py stopped at `date`" >> $log
+function panel()
+{
+    echo "  noninteractive-alignment-panel.py started at `date`" >> $log
+    srun -n 1 noninteractive-alignment-panel.py \
+      --json $json \
+      --fastq $fastq \
+      --matcher diamond \
+      --outputDir out \
+      --withScoreBetterThan 40 \
+      --maxTitles 200 \
+      --minMatchingReads 3 \
+      --minCoverage 0.1 \
+      --negativeTitleRegex phage \
+      --diamondDatabaseFastaFilename $dbfile > summary-proteins
+    echo "  noninteractive-alignment-panel.py stopped at `date`" >> $log
+
+    echo "  group-summary-proteins.py started at `date`" >> $log
+    echo summary-proteins | proteins-to-viruses.py > summary-virus
+    echo "  group-summary-proteins.py stopped at `date`" >> $log
+}
+
+if [ $SP_SIMULATE = "0" ]
+then
+    echo "  This is not a simulation." >> pipeline.log
+    if [ -f $out ]
+    then
+        if [ $SP_FORCE = "1" ]
+        then
+            echo "  Pre-existing output file $out exists, but --force was used. Overwriting." >> pipeline.log
+            panel
+        else
+            echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> pipeline.log
+        fi
+    else
+        echo "  No pre-existing output file $out exist, mapping." >> pipeline.log
+        panel
+    fi
+else
+    echo "  This is a simulation." >> pipeline.log
+fi
 
 echo "05-panel stopped at `date`" >> $log
 echo >> $log
