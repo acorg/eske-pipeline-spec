@@ -8,7 +8,4 @@
 
 task=$1
 
-echo "hostname is `hostname`"
-echo "task is $task"
-
 srun -n 1 diamond.sh $task
