@@ -21,7 +21,7 @@ fi
 
 function diamond()
 {
-    echo "  diamond blastx started at `date`" >> $log
+    echo "  DIAMOND blastx started at `date`" >> $log
     diamond blastx \
         --tmpdir /ramdisks \
         --threads 24 \
@@ -29,7 +29,7 @@ function diamond()
         --db $dbfile \
         --outfmt 6 qtitle stitle bitscore evalue qframe qseq qstart qend sseq sstart send slen btop |
     convert-diamond-to-json.py | bzip2 > $out
-    echo "  diamond blastx stopped at `date`" >> $log
+    echo "  DIAMOND blastx stopped at `date`" >> $log
 }
 
 
@@ -46,7 +46,7 @@ then
             echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> $log
         fi
     else
-        echo "  No pre-existing output file $out exist, mapping." >> $log
+        echo "  No pre-existing output file $out exist. Running DIAMOND." >> $log
         diamond
     fi
 else

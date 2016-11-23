@@ -66,7 +66,7 @@ then
             echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> $log
         fi
     else
-        echo "  No pre-existing output file $out exist, mapping." >> $log
+        echo "  No pre-existing output file $out exist. Making panel." >> $log
         panel
     fi
 else
