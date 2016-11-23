@@ -43,6 +43,7 @@ function trim()
 
     echo "  Adapter is $adapter" >> $log
 
+    echo "  AdapterRemoval started at `date`" >> $log
     srun -n 1 AdapterRemoval \
       --basename $task \
       --adapter1 $adapter \
@@ -51,6 +52,7 @@ function trim()
       --gzip \
       --trimns \
       --trimqualities
+    echo "  AdapterRemoval stopped at `date`" >> $log
 }
 
 
