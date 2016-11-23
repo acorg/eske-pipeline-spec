@@ -19,7 +19,7 @@ then
     exit 1
 fi
 
-function diamond()
+function run_diamond()
 {
     echo "  DIAMOND blastx started at `date`" >> $log
     diamond blastx \
@@ -41,13 +41,13 @@ then
         if [ $SP_FORCE = "1" ]
         then
             echo "  Pre-existing output file $out exists, but --force was used. Overwriting." >> $log
-            diamond
+            run_diamond
         else
             echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> $log
         fi
     else
         echo "  No pre-existing output file $out exist. Running DIAMOND." >> $log
-        diamond
+        run_diamond
     fi
 else
     echo "  This is a simulation." >> $log
