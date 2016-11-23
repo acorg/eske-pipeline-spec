@@ -35,22 +35,22 @@ function diamond()
 
 if [ $SP_SIMULATE = "0" ]
 then
-    echo "  This is not a simulation." >> pipeline.log
+    echo "  This is not a simulation." >> $log
     if [ -f $out ]
     then
         if [ $SP_FORCE = "1" ]
         then
-            echo "  Pre-existing output file $out exists, but --force was used. Overwriting." >> pipeline.log
+            echo "  Pre-existing output file $out exists, but --force was used. Overwriting." >> $log
             diamond
         else
-            echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> pipeline.log
+            echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> $log
         fi
     else
-        echo "  No pre-existing output file $out exist, mapping." >> pipeline.log
+        echo "  No pre-existing output file $out exist, mapping." >> $log
         diamond
     fi
 else
-    echo "  This is a simulation." >> pipeline.log
+    echo "  This is a simulation." >> $log
 fi
 
 echo "04-diamond on task $task stopped at `date`" >> $log
