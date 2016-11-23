@@ -50,9 +50,9 @@ function panel()
       --diamondDatabaseFastaFilename $dbfile > summary-proteins
     echo "  noninteractive-alignment-panel.py stopped at `date`" >> $log
 
-    echo "  group-summary-proteins.py started at `date`" >> $log
+    echo "  proteins-to-viruses.py started at `date`" >> $log
     echo summary-proteins | proteins-to-viruses.py > summary-virus
-    echo "  group-summary-proteins.py stopped at `date`" >> $log
+    echo "  proteins-to-viruses.py stopped at `date`" >> $log
 }
 
 if [ $SP_SIMULATE = "0" ]
