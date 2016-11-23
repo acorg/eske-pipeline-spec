@@ -45,7 +45,7 @@ then
             echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> $log
         fi
     else
-        echo "  No pre-existing output file $out exist. Mapping." >> $log
+        echo "  No pre-existing output file $out exists. Mapping." >> $log
         map
     fi
 else

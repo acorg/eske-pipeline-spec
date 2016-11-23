@@ -30,7 +30,7 @@ then
             echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> $log
         fi
     else
-        echo "  No pre-existing output file $out exist. Finding unmapped." >> $log
+        echo "  No pre-existing output file $out exists. Finding unmapped." >> $log
         unmapped
     fi
 else

@@ -11,6 +11,8 @@
 # The log file is the overall top-level job log file, seeing as this step
 # is a 'collect' step that is only run once.
 log=../slurm-pipeline.log
+outputDir=out
+out=$outputDir/index.html
 
 echo "05-panel started at `date`" >> $log
 
@@ -39,7 +41,7 @@ function panel()
       --json $json \
       --fastq $fastq \
       --matcher diamond \
-      --outputDir out \
+      --outputDir $outputDir \
       --withScoreBetterThan 40 \
       --maxTitles 200 \
       --minMatchingReads 3 \
@@ -66,7 +68,7 @@ then
             echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> $log
         fi
     else
-        echo "  No pre-existing output file $out exist. Making panel." >> $log
+        echo "  No pre-existing output file $out exists. Making panel." >> $log
         panel
     fi
 else

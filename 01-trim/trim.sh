@@ -67,7 +67,7 @@ then
             echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> $log
         fi
     else
-        echo "  No pre-existing output file $out exist. Trimming." >> $log
+        echo "  No pre-existing output file $out exists. Trimming." >> $log
         trim
     fi
 else
