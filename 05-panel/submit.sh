@@ -11,6 +11,8 @@
 # The log file is the overall top-level job log file, seeing as this step
 # is a 'collect' step that is only run once.
 log=../slurm-pipeline.log
+outputDir=out
+out=$outputDir/index.html
 
 echo "05-panel started at `date`" >> $log
 
@@ -31,23 +33,47 @@ then
     exit 1
 fi
 
-echo "  noninteractive-alignment-panel.py started at `date`" >> $log
-srun -n 1 noninteractive-alignment-panel.py \
-  --json $json \
-  --fastq $fastq \
-  --matcher diamond \
-  --outputDir out \
-  --withScoreBetterThan 40 \
-  --maxTitles 200 \
-  --minMatchingReads 3 \
-  --minCoverage 0.1 \
-  --negativeTitleRegex phage \
-  --diamondDatabaseFastaFilename $dbfile > summary-proteins
-echo "  noninteractive-alignment-panel.py stopped at `date`" >> $log
 
-echo "  group-summary-proteins.py started at `date`" >> $log
-group-summary-proteins.py < summary-proteins > summary-virus
-echo "  group-summary-proteins.py stopped at `date`" >> $log
+function panel()
+{
+    echo "  noninteractive-alignment-panel.py started at `date`" >> $log
+    srun -n 1 noninteractive-alignment-panel.py \
+      --json $json \
+      --fastq $fastq \
+      --matcher diamond \
+      --outputDir $outputDir \
+      --withScoreBetterThan 40 \
+      --maxTitles 200 \
+      --minMatchingReads 3 \
+      --minCoverage 0.1 \
+      --negativeTitleRegex phage \
+      --diamondDatabaseFastaFilename $dbfile > summary-proteins
+    echo "  noninteractive-alignment-panel.py stopped at `date`" >> $log
+
+    echo "  proteins-to-viruses.py started at `date`" >> $log
+    echo summary-proteins | proteins-to-viruses.py > summary-virus
+    echo "  proteins-to-viruses.py stopped at `date`" >> $log
+}
+
+if [ $SP_SIMULATE = "0" ]
+then
+    echo "  This is not a simulation." >> $log
+    if [ -f $out ]
+    then
+        if [ $SP_FORCE = "1" ]
+        then
+            echo "  Pre-existing output file $out exists, but --force was used. Overwriting." >> $log
+            panel
+        else
+            echo "  Will not overwrite pre-existing output file $out. Use --force to make me." >> $log
+        fi
+    else
+        echo "  No pre-existing output file $out exists. Making panel." >> $log
+        panel
+    fi
+else
+    echo "  This is a simulation." >> $log
+fi
 
 echo "05-panel stopped at `date`" >> $log
 echo >> $log
